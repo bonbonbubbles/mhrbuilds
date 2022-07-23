@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Skills{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 align="center display-3">Skills</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Threshold Info</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for skill in skills %}
+            <tr class="clickable" onclick="window.location.href='/view_gear_skill/{{ skill.name }}'">
+                <td>{{ skill.name }}</td>
+                <td>{{ skill.description }}</td>
+                <td>
+                    <small>{{ skill.rank1 }}</small>
+                    {% if skill.rank2 %}
+                    <br />
+                    <small>{{ skill.rank2 }}</small>
+                    {% endif %}
+                    {% if skill.rank3 %}
+                    <br />
+                    <small>{{ skill.rank3 }}</small>
+                    {% endif %}
+                    {% if skill.rank4 %}
+                    <br />
+                    <small>{{ skill.rank4 }}</small>
+                    {% endif %}
+                    {% if skill.rank5 %}
+                    <br />
+                    <small>{{ skill.rank5 }}</small>
+                    {% endif %}
+                    {% if skill.rank6 %}
+                    <br />
+                    <small>{{ skill.rank6 }}</small>
+                    {% endif %}
+                    {% if skill.rank7 %}
+                    <br />
+                    <small>{{ skill.rank7 }}</small>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,233 @@
+:root {
+    --dark-pink: #C45663;
+    --raisin-black: #211414;
+    --purple: #853C62;
+    --yellow: #E6C782;
+    --off-white: #FFFFF7;
+}
+
+a {
+    color: var(--off-white) !important;
+    text-align: center;
+}
+
+a:hover,
+.custom_yellow {
+    color: var(--yellow) !important;
+}
+
+body, table, thead, tbody, th, td, tr, select, option, datalist,
+h1, h2, h3, h4 {
+    color: var(--off-white) !important;
+}
+
+body {
+    background-image: linear-gradient(to bottom right, rgba(196, 86, 99, 0.20), rgba(230, 199, 130, 0.20)), url('/static/malzeno1.webp'), linear-gradient(to bottom right, var(--dark-pink), var(--yellow));
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+i {
+    color: var(--off-white) !important;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+input:checked {
+    background-color: var(--purple) !important;
+    color: var(--off-white) !important;
+    border-color: var(--purple) !important;
+}
+
+table,
+.form {
+    width: 95% !important;
+    margin: 0 auto !important;
+}
+
+th:after {
+    content:'';
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    width:100%;
+}
+
+tr:hover td  {
+    background-color: rgba(196, 86, 99, 0.20) !important;
+}
+
+.btn-success:hover {
+    background-color: var(--yellow) !important;
+}
+
+.btn-success {
+    background-color: var(--dark-pink) !important;
+    border-color: var(--purple) !important;
+}
+
+.btn-success:active,
+.btn-success:focus {
+    border-color: var(--yellow) !important;
+    box-shadow: 0 0 0 0.2rem rgba(230, 199, 130, 0.5) !important; 
+}
+
+.card-title,
+.modal-title,
+.card-text,
+.dark {
+    color: var(--raisin-black) !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.content {
+    background-color:rgba(0, 0, 0, 0.80);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+}
+
+.fa-circle-info {
+    color: var(--dark-pink) !important;
+    font-size: 1.5em;
+    padding: 0px;
+}
+
+
+.fa-arrow-right-to-bracket,
+.fa-arrow-right-from-bracket {
+    font-size: 1.5em !important;
+    padding: 0px;
+}
+
+.fa-arrow-right-to-bracket:hover,
+.fa-arrow-right-from-bracket:hover,
+.fa-circle-info:hover,
+.fa-trash-can.danger:hover,
+.fa-xmark:hover,
+.fa-trash-can:hover {
+    color: var(--yellow) !important;
+}
+
+.fa-trash-can.danger {
+    color: red !important;
+}
+
+.fa-xmark {
+    padding-bottom: 0px !important;
+    font-size: 1em !important;
+}
+
+.fixed-cols {
+    table-layout: fixed !important;
+}
+
+.fixed-cols td,
+.fixed-cols th {
+    width: 100px !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus,
+.icon:focus {
+    border-color: var(--yellow) !important;
+    box-shadow: 0 0 0 0.2rem rgba(230, 199, 130, 0.5) !important;
+}
+
+.btn-invisible {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: transparent !important;
+}
+
+.login {
+    width: 50%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+td {
+    max-width: 200px;
+}
+
+.navbar-custom {
+    background-color: var(--purple) !important;
+    border-color: var(--purple) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mr {
+    margin-right: 10px;
+}
+
+.rounded {
+    border-radius: 5px;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th {
+    vertical-align: middle;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-color: var(--dark-pink) !important;
+}
+
+.tooltip-login,
+.tooltip-logout {
+    position: relative;
+    display: inline-block;
+    height: 30px;
+    margin-top: -0.2rem;
+}
+
+.tooltip-login:hover .tooltiptext-login,
+.tooltip-logout:hover .tooltiptext-logout {
+    visibility: visible;
+}
+
+.tooltiptext-login,
+.tooltiptext-logout {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--dark-pink) !important;
+    color: var(--off-white) !important;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.w70 {
+    width: 70% !important;
+}
+
+.w20 {
+    width: 20% !important;
+}
+
+#myInput {
+    width: 100%;
+    font-size: 16px;
+    padding-left: 12px;
+    border: 1px solid var(--purple);
+}

@@ -1,0 +1,529 @@
+{% extends "base.html" %}
+
+{% block title %}Gear with {{ skill_name }}{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 class="center display-3">Gear with {{ skill_name }}</h1>
+    <br />
+    {% if helmets %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Helmets</h1></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for helmet in helmets %}
+            <tr>
+                <td>{{ helmet.name }}</td>
+                <td>{% if helmet.rank == "high" %}
+                    High
+                    {% elif helmet.rank == "master" %}
+                    Master
+                    {% elif helmet.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ helmet.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ helmet.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ helmet.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ helmet.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ helmet.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ helmet.water }}</td>
+                <td>
+                    {% if helmet.gem1 %}
+                        {% if helmet.gem1 != "0" %}
+                            Slots: 
+                            {% if helmet.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif helmet.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif helmet.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif helmet.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if helmet.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif helmet.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif helmet.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif helmet.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if helmet.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif helmet.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif helmet.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif helmet.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in helmet.skills %}
+                    {{ skill[0] }} {{ skill[1] }}
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="helmets/{{ helmet._id }}" onClick="transferName('helmets/{{helmet._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if chests %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Chest</h1></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for chest in chests %}
+                <td>{{ chest.name }}</td>
+                <td>{% if chest.rank == "high" %}
+                    High
+                    {% elif chest.rank == "master" %}
+                    Master
+                    {% elif chest.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ chest.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ chest.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ chest.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ chest.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ chest.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ chest.water }}</td>
+                <td>
+                    {% if chest.gem1 %}
+                        {% if chest.gem1 != "0" %}
+                            Slots: 
+                            {% if chest.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif chest.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif chest.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif chest.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if chest.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif chest.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif chest.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif chest.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if chest.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif chest.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif chest.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif chest.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in chest.skills %}
+                    {{ skill[0] }} {{ skill[1] }}
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="armor/{{ chest._id }}" onClick="transferName('armor/{{chest._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if gloves %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Gloves</h1></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for glove in gloves %}
+                <td>{{ glove.name }}</td>
+                <td>{% if glove.rank == "high" %}
+                    High
+                    {% elif glove.rank == "master" %}
+                    Master
+                    {% elif glove.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ glove.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ glove.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ glove.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ glove.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ glove.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ glove.water }}</td>
+                <td>
+                    {% if glove.gem1 %}
+                        {% if glove.gem1 != "0" %}
+                            Slots: 
+                            {% if glove.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif glove.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif glove.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif glove.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if glove.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif glove.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif glove.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif glove.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if glove.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif glove.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif glove.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif glove.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in glove.skills %}
+                    {{ skill[0] }} {{ skill[1] }}
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="gloves/{{ glove._id }}" onClick="transferName('{{glove._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if belts %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Belts</h1></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for belt in belts %}
+                <td>{{ belt.name }}</td>
+                <td>{% if belt.rank == "high" %}
+                    High
+                    {% elif belt.rank == "master" %}
+                    Master
+                    {% elif belt.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ belt.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ belt.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ belt.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ belt.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ belt.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ belt.water }}</td>
+                <td>
+                    {% if belt.gem1 %}
+                        {% if belt.gem1 != "0" %}
+                            Slots: 
+                            {% if belt.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif belt.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif belt.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif belt.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if belt.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif belt.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif belt.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif belt.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if belt.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif belt.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif belt.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif belt.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in belt.skills %}
+                    {{ skill[0] }} {{ skill[1] }}
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="belts/{{ belt._id }}" onClick="transferName('belts/{{belt._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if legs %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Legs</h1></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for leg in legs %}
+            <tr>
+                <td>{{ leg.name }}</td>
+                <td>{% if leg.rank == "high" %}
+                    High
+                    {% elif leg.rank == "master" %}
+                    Master
+                    {% elif leg.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ leg.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ leg.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ leg.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ leg.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ leg.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ leg.water }}</td>
+                <td>
+                    {% if leg.gem1 %}
+                        {% if leg.gem1 != "0" %}
+                            Slots: 
+                            {% if leg.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif leg.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif leg.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif leg.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if leg.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif leg.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif leg.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif leg.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if leg.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif leg.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif leg.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif leg.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in leg.skills %}
+                    {{ skill[0] }} {{ skill[1] }}
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="legs/{{ leg._id }}" onClick="transferName('legs/{{leg._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if decorations %}
+    <table class="table fixed-cols">
+        <thead>
+            <tr>
+                <th colspan="7" class="center"><h1 class="display-6">Decorations</h1></th>
+            </tr>
+            <tr>
+                <th colspan="2">Name</th>
+                <th colspan="2">Skill</th>
+                <th colspan="2">Description</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for decoration in decorations %}
+            <tr>
+                <td colspan="2">{% if decoration.grade == "1" %}
+                    <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                    {% elif decoration.grade == "2" %}
+                    <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                    {% elif decoration.grade == "3" %}
+                    <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                    {% elif decoration.grade == "4" %}
+                    <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                    {% endif %}
+                    {{ decoration.name }} {{ decoration.grade }}</td>
+                <td colspan="2">{{ decoration.skill }} Lv. {{ decoration.skilllevel }}</td>
+                <td colspan="2">{{ decoration.description }}</td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="{{ decoration._id }}" onClick="transferName('deco/{{decoration._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="display-6 center dark">Select Gearset</h1>
+                <input disabled type="hidden" id="name" class="form-control" value="" width="auto" />
+                <br />
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <div class="row row-col-6 g-3">
+                {% for gearset in gearsets %}
+                    <div class="col">
+                        <button type="button" class="btn btn-success add" onClick="createUrlAndGo('{{ gearset._id }}')">{{ gearset.name }}</button>
+                    </div>
+                {% endfor %}
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onClick="window.location.href='/add_gearset/'">Create New Gearset</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function transferName(id) {
+        console.log(id);
+        $("#name").attr("value", id);
+    };
+</script>
+<script>
+    function createUrlAndGo(gearset_id) {
+        value = $('#name').val();
+        if (value.includes('deco') == true) {
+            // remove deco/ from #name
+            var name = $("#name").attr("value");
+            name = name.substring(5);
+            var url = '/add_deco_to_gear/' + gearset_id + '/' + name;
+        } else {
+            var url = "/add_to_gearset/" + gearset_id + "/" + $("#name").val();
+        }
+        window.location.href = url;
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}View Rampage Decorations{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 class="center display-3">Rampage Decorations</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Skill</th>
+                <th>Description</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for decoration in decorations %}
+            <tr>
+                <td>{% if decoration.grade == "1" %}
+                    <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                    {% elif decoration.grade == "2" %}
+                    <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                    {% elif decoration.grade == "3" %}
+                    <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                    {% elif decoration.grade == "4" %}
+                    <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                    {% endif %}
+                    {{ decoration.name }} {{ decoration.grade }}</td>
+                <td><a href="/view_gear_skill/{{ decoration.skill }}">{{ decoration.skill }}</a></td>
+                <td>{{ decoration.description }}</td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="{{ decoration._id }}" onClick="transferName('{{decoration._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="display-6 center dark">Select Gearset</h1>
+                <input disabled type="hidden" id="name" class="form-control" value="" width="auto" />
+                <br />
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <div class="row row-col-6 g-3">
+                {% for gearset in gearsets %}
+                    <div class="col">
+                        <button type="button" class="btn btn-success add" onClick="createUrlAndGo('{{ gearset._id }}')">{{ gearset.name }}</button>
+                    </div>
+                {% endfor %}
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onClick="window.location.href='/add_gearset/'">Create New Gearset</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function transferName(id) {
+        console.log(id);
+        $("#name").attr("value", id);
+    };
+</script>
+<script>
+    function createUrlAndGo(gearset_id) {
+        var url = "/add_rampage_deco_to_gear/" + gearset_id + "/" + $("#name").val();
+        window.location.href = url;
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title%}Log In{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <br />
+    <div class="content login">
+        <h1 align="center">Log In</h1>
+        <br />
+        <div class="form-group">
+            <label for="email">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+            <br />
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+        </div>
+        <br />
+        <div align="center">
+            <button type="submit" class="btn btn-success center">Log In</button>
+            <button type="button" class="btn btn-success center" onclick="location.href='/sign_up'">Sign Up</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style> .loader {
+        position: fixed;
+        background-color: #C45663;
+        opacity: 1;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    </style>
+    <div class="loader">
+    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top hidden-on-print">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav gap-2 me-auto align-items-center">
+                    <a class="nav-item nav-link align-middle" id="weapon_overview" href="/weapon_overview">Weapons</a>
+                    <a class="nav-item nav-link align-middle" id="view_helmets" href="/view_helmets">Helmets</a>
+                    <a class="nav-item nav-link align-middle" id="view_chest" href="/view_chest">Chest</a>
+                    <a class="nav-item nav-link align-middle" id="view_gloves" href="/view_gloves">Gloves</a>
+                    <a class="nav-item nav-link align-middle" id="view_belts" href="/view_belts">Belts</a>
+                    <a class="nav-item nav-link align-middle" id="view_legs" href="/view_legs">Legs</a>
+                    <a class="nav-item nav-link align-middle" id="view_skills" href="/view_skills">Skills</a>
+                    <a class="nav-item nav-link align-middle" id="view_decorations" href="/view_decorations">Decorations</a>
+                    <a class="nav-item nav-link align-middle" id="view_rampage_decorations" href="/view_rampage_decorations">Rampage Decorations</a>
+                </ul>
+                <ul class="navbar-nav gap-3 ms-auto align-items-center">
+                    <a class="nav-item nav-link align-middle" id="view_about" href="/public_gearsets_overview">Public Gearsets</a>
+                    {% if email is defined %}
+                    <a class="nav-item nav-link align-middle" href="/view_gearsets/{{ email }}">Gearsets</a>
+                    {% endif %}
+                    <input type="text" id="myInput" onkeyup="myFunction()" class="form-control form-control-sm" placeholder="Search..." onClick="this.select()" required>
+                    <script>
+                        $(document).ready(function () {
+                            $("#myInput").on("keyup", function () {
+                                var value = $(this).val().toLowerCase();
+                                $("#myTable tr").filter(function () {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            });
+                        });
+                    </script>
+                    {% if email is defined %}
+                    <div class="tooltip-logout">
+                        <a class="nav-item nav-link tooltip-logout" id="logout" href="/logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </a>
+                        <span class="tooltiptext-logout">Logout</span>
+                    </div>
+                    {% else %}
+                    <div class="tooltip-login">
+                        <a class="nav-item nav-link tooltip-login" id="login" href="/login">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        </a>
+                        <span class="tooltiptext-login">Login</span>
+                    </div>
+                    {% endif %}
+                    <a class="nav=item nav-link align-middle" id="view_about" href="/about"><i class="fa-solid fa-circle-info"></i></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' or category == 'danger' %}
+                    <div class="alert alert-danger alert-dismissable fade show form" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-success alert-dismissable fade show form" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <link defer rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+    <link defer href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/f34a3ea12f.js" crossorigin="anonymous"></script>
+</body>
+<style>
+    .loader {
+        -webkit-animation: load-out 1s;
+        animation: load-out 1s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    
+    @-webkit-keyframes load-out {
+        from {
+            top: 0;
+            opacity: 1;
+        }
+    
+        to {
+            top: 100%;
+            opacity: 0;
+        }
+    }
+    
+    @keyframes load-out {
+        from {
+            top: 0;
+            opacity: 1;
+        }
+    
+        to {
+            top: 100%;
+            opacity: 0;
+        }
+    }
+    </style>
+</html>

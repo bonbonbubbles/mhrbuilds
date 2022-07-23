@@ -1,0 +1,677 @@
+{% extends "base.html" %}
+
+{% block title %}Gearset Details - {{ gearset.name }}{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 class="center display-3">Gearset Details - {{ gearset.name }}</h1>
+    <br />
+    <h1 class="display-6 center">Description</h1>
+    <p class="center">{{ gearset.description }}</p>
+    <div class="float-start w70">
+        <h1 class="display-6 center">Gear</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    {% if email is defined and email == creator_email %}
+                    <th></th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if gearset.weapon != "" %}
+                <tr>
+                    <td>
+                        {% if gearset.weapon_type == "Greatsword" %}
+                        <img src="/static/greatsword.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Sword and Shield" %}
+                        <img src="/static/swordandshield.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Dual Blades" %}
+                        <img src="/static/dualblades.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Longsword" %}
+                        <img src="/static/longsword.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Hammer" %}
+                        <img src="/static/hammer.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Lance" %}
+                        <img src="/static/huntinghorn.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Lance" %}
+                        <img src="/static/lance.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Gunlance" %}
+                        <img src="/static/gunlance.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Switch Axe" %}
+                        <img src="/static/switchaxe.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Charge Blade" %}
+                        <img src="/static/chargeblade.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Insect Glaive" %}
+                        <img src="/static/insectglaive.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Bow" %}
+                        <img src="/static/bow.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Heavy Bowgun" %}
+                        <img src="/static/heavybowgun.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% elif gearset.weapon_type == "Light Bowgun" %}
+                        <img src="/static/lightbowgun.jpg" style="width:30px;height:30px;" class="mr rounded">
+                        {% endif %}
+                        {{ gearset.weapon }}
+                    </td>
+                    <td>Attack: {{ weapon_info.attack }}</td>
+                    <td>
+                        {% if weapon_info.element == "Fire" %}<img src="/static/fire.png" alt="fire" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Ice" %}<img src="/static/ice.png" alt="ice" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Thunder" %}<img src="/static/thunder.png" alt="thunder" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Dragon" %}<img src="/static/dragon.png" alt="dragon" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Blast" %}<img src="/static/blast.png" alt="blast" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Water" %}<img src="/static/water.png" alt="water" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Paralysis" %}<img src="/static/paralysis.png" alt="paralysis" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Poison" %}<img src="/static/poison.png" alt="poison" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "Sleep" %}<img src="/static/sleep.png" alt="sleep" width="20" height="20">{% endif %} 
+                        {% if weapon_info.element == "None" %}  {% else %}
+                        {{ weapon_info.element_str if weapon_info.element_str }}
+                        <br />
+                        {% endif %}
+                        Affinity 
+                        {% if weapon_info.affinity > '0%' %}
+                        <span style='color: green;'>{{ weapon_info.affinity }}</span>
+                        {% elif weapon_info.affinity < '0%' %}
+                        <span style='color: red;'>{{ weapon_info.affinity }}</span>
+                        {% else %}
+                        {{ weapon_info.affinity }}
+                        {% endif %}
+                        <br />
+                        {% if weapon_info.defense_bonus > '0' %}
+                        Defense Bonus +{{ weapon_info.defense_bonus }}
+                        <br />
+                        {% endif %}
+                        Sharpness: {{ weapon_info.sharpness }}
+                    </td>
+                    <td>{% if weapon_info.gem1 != "0" %}
+                            {% if weapon_info.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif weapon_info.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif weapon_info.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif weapon_info.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if gearset.weaponslot1[1] != "" %}
+                            {{ gearset.weaponslot1[1] }} {{ gearset.weaponslot1[0]}}
+                            <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/weapon/{{ gearset.weaponslot1[1] }}-{{ gearset.weaponslot1[0] }}'"></i>
+                            {% endif %}
+                            <br />
+                            {% if weapon_info.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif weapon_info.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif weapon_info.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif weapon_info.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if gearset.weaponslot2[1] != "" %}
+                            {{ gearset.weaponslot2[1] }} {{ gearset.weaponslot2[0]}}
+                            <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/weapon/{{ gearset.weaponslot2[1] }}-{{ gearset.weaponslot2[0] }}'"></i>
+                            {% endif %}
+                            <br />
+                            {% if weapon_info.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                            {% elif weapon_info.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                            {% elif weapon_info.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                            {% elif weapon_info.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                            {% endif %}
+                            {% if gearset.weaponslot3[1] != "" %}
+                            {{ gearset.weaponslot3[1] }} {{ gearset.weaponslot3[0]}}
+                            <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/weapon/{{ gearset.weaponslot3[1] }}-{{ gearset.weaponslot3[0] }}'"></i>
+                            {% endif %}
+                        {% endif %}
+                        {% if weapon_info.rampage_gem %}
+                            {% if weapon_info.rampage_gem != "0" %}
+                                <br />
+                                <br />
+                                {% if weapon_info.rampage_gem == "1" %}
+                                <img class="rounded" src="/static/rdeco1.png" width="30" height="30" />
+                                {% elif weapon_info.rampage_gem == "2" %}
+                                <img class="rounded" src="/static/rdeco2.png" width="30" height="30" />
+                                {% elif weapon_info.rampage_gem == "3" %}
+                                <img class="rounded" src="/static/rdeco3.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.rampageslot[1] != "" %}
+                                {{ gearset.rampageslot[1] }} {{ gearset.rampageslot[0]}}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_rampage_decoration/{{ gearset._id }}/{{ gearset.rampageslot[1] }}-{{ gearset.rampageslot[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if weapon_info.skills %}
+                        {% for skill in weapon_info.skills %}
+                        {% if skill != "" and skill != None %}
+                            {{ skill }}<br />
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </td>
+                    <td>Rarity {{ weapon_info.rarity }}</td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/weapon'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% if gearset.helmet != "" and helmet_info is defined %}
+                <tr>
+                    <td><img src='/static/helmet.jpg' class="rounded mr" width="30px" height="30px" />{{ gearset.helmet }}</td>
+                    <td>Defense: {{ helmet_info.defense }}</td>
+                    <td>
+                        <img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ helmet_info.dragon }}
+                        <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ helmet_info.fire }}
+                        <br />
+                        <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ helmet_info.ice }}
+                        <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ helmet_info.thunder }}
+                        <img class="m-2" src="/static/water.png" width="20" height="20" />{{ helmet_info.water }}
+                    </td>
+                    <td>
+                        {% if helmet_info.gem1 %}
+                            {% if helmet_info.gem1 != "0" %}
+                                {% if helmet_info.gem1 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif helmet_info.gem1 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif helmet_info.gem1 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif helmet_info.gem1 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.helmetslot1[1] != "" %}
+                                {{ gearset.helmetslot1[1] }} {{ gearset.helmetslot1[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/helmet/{{ gearset.helmetslot1[1] }}-{{ gearset.helmetslot1[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if helmet_info.gem2 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif helmet_info.gem2 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif helmet_info.gem2 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif helmet_info.gem2 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.helmetslot2[1] != "" %}
+                                {{ gearset.helmetslot2[1] }} {{ gearset.helmetslot2[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/helmet/{{ gearset.helmetslot2[1] }}-{{ gearset.helmetslot2[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if helmet_info.gem3 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif helmet_info.gem3 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif helmet_info.gem3 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif helmet_info.gem3 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.helmetslot3[1] != "" %}
+                                {{ gearset.helmetslot3[1] }} {{ gearset.helmetslot3[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/helmet/{{ gearset.helmetslot3[1] }}-{{ gearset.helmetslot3[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for skill in helmet_info.skills %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                        <br />
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if helmet_info.rank == "high" %}
+                        High
+                        {% elif helmet_info.rank == "master" %}
+                        Master
+                        {% elif helmet_info.rank == "special" %}
+                        Special
+                        {% endif %}
+                    </td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/helmet'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% if gearset.armor != "" and armor_info is defined %}
+                <tr>
+                    <td><img src='/static/chest.jpg' class="rounded mr" width="30px" height="30px" />{{ gearset.armor }}</td>
+                    <td>Defense: {{ armor_info.defense }}</td>
+                    <td>
+                        <img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ armor_info.dragon }}
+                        <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ armor_info.fire }}
+                        <br />
+                        <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ armor_info.ice }}
+                        <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ armor_info.thunder }}
+                        <img class="m-2" src="/static/water.png" width="20" height="20" />{{ armor_info.water }}
+                    </td>
+                    <td>
+                        {% if armor_info.gem1 %}
+                            {% if armor_info.gem1 != "0" %}
+                                {% if armor_info.gem1 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif armor_info.gem1 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif armor_info.gem1 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif armor_info.gem1 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.armorslot1[1] != "" %}
+                                {{ gearset.armorslot1[1] }} {{ gearset.armorslot1[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/armor/{{ gearset.armorslot1[1] }}-{{ gearset.armorslot1[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if armor_info.gem2 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif armor_info.gem2 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif armor_info.gem2 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif armor_info.gem2 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.armorslot2[1] != "" %}
+                                {{ gearset.armorslot2[1] }} {{ gearset.armorslot2[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/armor/{{ gearset.armorslot2[1] }}-{{ gearset.armorslot2[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if armor_info.gem3 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif armor_info.gem3 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif armor_info.gem3 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif armor_info.gem3 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.armorslot3[1] != "" %}
+                                {{ gearset.armorslot3[1] }} {{ gearset.armorslot3[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/armor/{{ gearset.armorslot3[1] }}-{{ gearset.armorslot3[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for skill in armor_info.skills %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                        <br />
+                        {% endfor %}
+                    </td>
+                    <td>{% if armor_info.rank == "high" %}
+                        High
+                        {% elif armor_info.rank == "master" %}
+                        Master
+                        {% elif armor_info.rank == "special" %}
+                        Special
+                        {% endif %}
+                    </td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/armor'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% if gearset.gloves != "" and gloves_info is defined %}
+                <tr>
+                    <td><img src='/static/gloves.jpg' class="rounded mr" width="30px" height="30px" />{{ gearset.gloves }}</td>
+                    <td>Defense: {{ gloves_info.defense }}</td>
+                    <td>
+                        <img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ gloves_info.dragon }}
+                        <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ gloves_info.fire }}
+                        <br />
+                        <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ gloves_info.ice }}
+                        <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ gloves_info.thunder }}
+                        <img class="m-2" src="/static/water.png" width="20" height="20" />{{ gloves_info.water }}
+                    </td>
+                    <td>
+                        {% if gloves_info.gem1 %}
+                            {% if gloves_info.gem1 != "0" %}
+                                {% if gloves_info.gem1 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif gloves_info.gem1 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif gloves_info.gem1 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif gloves_info.gem1 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.glovesslot1[1] != "" %}
+                                {{ gearset.glovesslot1[1] }} {{ gearset.glovesslot1[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/gloves/{{ gearset.glovesslot1[1] }}-{{ gearset.glovesslot1[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if gloves_info.gem2 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif gloves_info.gem2 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif gloves_info.gem2 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif gloves_info.gem2 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.glovesslot2[1] != "" %}
+                                {{ gearset.glovesslot2[1] }} {{ gearset.glovesslot2[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/gloves/{{ gearset.glovesslot2[1] }}-{{ gearset.glovesslot2[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if gloves_info.gem3 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif gloves_info.gem3 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif gloves_info.gem3 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif gloves_info.gem3 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.glovesslot3[1] != "" %}
+                                {{ gearset.glovesslot3[1] }} {{ gearset.glovesslot3[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/gloves/{{ gearset.glovesslot3[1] }}-{{ gearset.glovesslot3[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for skill in gloves_info.skills %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                        <br />
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if gloves_info.rank == "high" %}
+                        High
+                        {% elif gloves_info.rank == "master" %}
+                        Master
+                        {% elif gloves_info.rank == "special" %}
+                        Special
+                        {% endif %}
+                    </td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/gloves'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% if gearset.belt != "" and belt_info is defined %}
+                <tr>
+                    <td><img src='/static/belt.jpg' class="rounded mr" width="30px" height="30px" />{{ gearset.belt }}</td>
+                    <td>Defense: {{ belt_info.defense }}</td>
+                    <td>
+                        <img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ belt_info.dragon }}
+                        <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ belt_info.fire }}
+                        <br />
+                        <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ belt_info.ice }}
+                        <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ belt_info.thunder }}
+                        <img class="m-2" src="/static/water.png" width="20" height="20" />{{ belt_info.water }}
+                    </td>
+                    <td>
+                        {% if belt_info.gem1 %}
+                            {% if belt_info.gem1 != "0" %}
+                                {% if belt_info.gem1 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif belt_info.gem1 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif belt_info.gem1 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif belt_info.gem1 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.beltslot1[1] != "" %}
+                                {{ gearset.beltslot1[1] }} {{ gearset.beltslot1[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/belt/{{ gearset.beltslot1[1] }}-{{ gearset.beltslot1[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if belt_info.gem2 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif belt_info.gem2 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif belt_info.gem2 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif belt_info.gem2 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.beltslot2[1] != "" %}
+                                {{ gearset.beltslot2[1] }} {{ gearset.beltslot2[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/belt/{{ gearset.beltslot2[1] }}-{{ gearset.beltslot2[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if belt_info.gem3 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif belt_info.gem3 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif belt_info.gem3 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif belt_info.gem3 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.beltslot3[1] != "" %}
+                                {{ gearset.beltslot3[1] }} {{ gearset.beltslot3[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/belt/{{ gearset.beltslot3[1] }}-{{ gearset.beltslot3[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for skill in belt_info.skills %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                        <br />
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if belt_info.rank == "high" %}
+                        High
+                        {% elif belt_info.rank == "master" %}
+                        Master
+                        {% elif belt_info.rank == "special" %}
+                        Special
+                        {% endif %}
+                    </td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/belt'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% if gearset.legs != "" and legs_info is defined %}
+                <tr>
+                    <td><img src='/static/legs.jpg' class="rounded mr" width="30px" height="30px" />{{ gearset.legs }}</td>
+                    <td>Defense: {{ legs_info.defense }}</td>
+                    <td>
+                        <img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ legs_info.dragon }}
+                        <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ legs_info.fire }}
+                        <br />
+                        <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ legs_info.ice }}
+                        <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ legs_info.thunder }}
+                        <img class="m-2" src="/static/water.png" width="20" height="20" />{{ legs_info.water }}
+                    </td>
+                    <td>
+                        {% if legs_info.gem1 %}
+                            {% if legs_info.gem1 != "0" %}
+                                {% if legs_info.gem1 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif legs_info.gem1 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif legs_info.gem1 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif legs_info.gem1 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.legsslot1[1] != "" %}
+                                {{ gearset.legsslot1[1] }} {{ gearset.legsslot1[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/legs/{{ gearset.legsslot1[1] }}-{{ gearset.legsslot1[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if legs_info.gem2 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif legs_info.gem2 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif legs_info.gem2 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif legs_info.gem2 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.legsslot2[1] != "" %}
+                                {{ gearset.legsslot2[1] }} {{ gearset.legsslot2[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/legs/{{ gearset.legsslot2[1] }}-{{ gearset.legsslot2[0] }}'"></i>
+                                {% endif %}
+                                <br />
+                                {% if legs_info.gem3 == "1" %}
+                                <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                                {% elif legs_info.gem3 == "2" %}
+                                <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                                {% elif legs_info.gem3 == "3" %}
+                                <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                                {% elif legs_info.gem3 == "4" %}
+                                <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                                {% endif %}
+                                {% if gearset.legsslot3[1] != "" %}
+                                {{ gearset.legsslot3[1] }} {{ gearset.legsslot3[0] }}
+                                <i class="fa-solid fa-xmark clickable" onClick="window.location.href='/remove_decoration/{{ gearset._id }}/legs/{{ gearset.legsslot3[1] }}-{{ gearset.legsslot3[0] }}'"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for skill in legs_info.skills %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                        <br />
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if legs_info.rank == "high" %}
+                        High
+                        {% elif legs_info.rank == "master" %}
+                        Master
+                        {% elif legs_info.rank == "special" %}
+                        Special
+                        {% endif %}
+                    </td>
+                    {% if email is defined and email == creator_email %}
+                    <td>
+                        <i class="fa-solid fa-trash-can clickable" onClick="window.location.href='/remove_from_gearset/{{ gearset._id }}/legs'"></i>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="float-end w20">
+        <h1 class="center display-6">Skills</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for skill in skills_list %}
+                <tr>
+                    <td>
+                        {% if skill[2] >= skill[1] %}
+                        <a class="custom_yellow" href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }}</a>
+                        {% else %}
+                        <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% if skill[1] == 1 %}
+                        {% if skill[2] >= 1 %}
+                        <img src="/static/skill_levels/1of1.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 2 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of2.png" height="15" />
+                        {% elif skill[2] >= 2 %}
+                        <img src="/static/skill_levels/2of2.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 3 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of3.png" height="15" />
+                        {% elif skill[2] == 2 %}
+                        <img src="/static/skill_levels/2of3.png" height="15" />
+                        {% elif skill[2] >=3 %}
+                        <img src="/static/skill_levels/3of3.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 4 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of4.png" height="15" />
+                        {% elif skill[2] == 2 %}
+                        <img src="/static/skill_levels/2of4.png" height="15" />
+                        {% elif skill[2] == 3 %}
+                        <img src="/static/skill_levels/3of4.png" height="15" />
+                        {% elif skill[2] >= 4 %}
+                        <img src="/static/skill_levels/4of4.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 5 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of5.png" height="15" />
+                        {% elif skill[2] == 2 %}
+                        <img src="/static/skill_levels/2of5.png" height="15" />
+                        {% elif skill[2] == 3 %}
+                        <img src="/static/skill_levels/3of5.png" height="15" />
+                        {% elif skill[2] == 4 %}
+                        <img src="/static/skill_levels/4of5.png" height="15" />
+                        {% elif skill[2] >= 5 %}
+                        <img src="/static/skill_levels/5of5.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 6 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of6.png" height="15" />
+                        {% elif skill[2] == 2 %}
+                        <img src="/static/skill_levels/2of6.png" height="15" />
+                        {% elif skill[2] == 3 %}
+                        <img src="/static/skill_levels/3of6.png" height="15" />
+                        {% elif skill[2] == 4 %}
+                        <img src="/static/skill_levels/4of6.png" height="15" />
+                        {% elif skill[2] == 5 %}
+                        <img src="/static/skill_levels/5of6.png" height="15" />
+                        {% elif skill[2] >= 6 %}
+                        <img src="/static/skill_levels/6of6.png" height="15" />
+                        {% endif %}
+                    {% elif skill[1] == 7 %}
+                        {% if skill[2] == 1 %}
+                        <img src="/static/skill_levels/1of7.png" height="15" />
+                        {% elif skill[2] == 2 %}
+                        <img src="/static/skill_levels/2of7.png" height="15" />
+                        {% elif skill[2] == 3 %}
+                        <img src="/static/skill_levels/3of7.png" height="15" />
+                        {% elif skill[2] == 4 %}
+                        <img src="/static/skill_levels/4of7.png" height="15" />
+                        {% elif skill[2] == 5 %}
+                        <img src="/static/skill_levels/5of7.png" height="15" />
+                        {% elif skill[2] == 6 %}
+                        <img src="/static/skill_levels/6of7.png" height="15" />
+                        {% elif skill[2] >= 7 %}
+                        <img src="/static/skill_levels/7of7.png" height="15" />
+                        {% endif %}
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
