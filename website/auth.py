@@ -23,7 +23,7 @@ def login():
         else:
             flash('Login failed. Please check your login details and try again.', category='error')
             return redirect(url_for('auth.login'))
-    return render_template("login.html")
+    return render_template('login.html')
 
 @auth.route('/logout')
 def logout():

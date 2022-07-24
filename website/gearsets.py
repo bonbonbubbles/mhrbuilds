@@ -18,7 +18,7 @@ def view_gearsets(email):
             flash('You are not authorized to view this page.')
             return redirect(url_for('view_gear.overview'))
     flash('You must be logged in to view your gearsets.')
-    return render_template('login.html')
+    return redirect(url_for('auth.login'))
 
 @gearsets.route('/public_gearsets_overview/', methods=['GET'])
 def public_gearset_overview():
@@ -29,7 +29,6 @@ def public_gearset_overview():
 @gearsets.route('/view_public_gearsets/<weapon_type>', methods=['GET'])
 def view_public_gearsets(weapon_type):
     gearset_list_query = db.gearsets.find({'weapon_type': weapon_type, 'public': True})
-    print(gearset_list_query)
 
     gearset_list = {}
 
@@ -60,14 +59,8 @@ def view_gearset(gearset_id):
     # name is skills_list[0], max is skills_list[1], count is skills_list[2]
     skills_list = []
     for slot in slot_info:
-        if slot_info[slot][2] != "" and (slot_info[slot][2] not in skills_list):
-            skills_list.append([slot_info[slot][2], int(slot_info[slot][3]), 1])
-        else:
-            # add one to the count of the skill
-            for skill in skills_list:
-                if skill[0] == slot_info[slot][2]:
-                    skill[2] += 1
-                    break
+        if slot_info[slot][2] != "":
+            skills_list.append([[slot_info[slot][2], int(slot_info[slot][4]), int(slot_info[slot][3])]])
 
     # get skill names from gearset
     skills_list.append(get_skill_names_from_gear(helmet_info))
@@ -84,6 +77,10 @@ def view_gearset(gearset_id):
     for item in skills_list:
         if len(item) > 1:
             new_skills_list.append(item[1])
+        if len(item) > 2:
+            new_skills_list.append(item[2])
+        if len(item) > 3:
+            new_skills_list.append(item[3])
 
     skills_list = new_skills_list
     print(skills_list)
@@ -96,12 +93,22 @@ def view_gearset(gearset_id):
                 skills_list[i][2] += skills_list[j][2]
                 skills_list.pop(j)
                 break
-    print(skills_list)
+    for i in range(len(skills_list)):
+        for j in range(i+1, len(skills_list)):
+            if skills_list[i][0] == skills_list[j][0]:
+                skills_list[i][2] += skills_list[j][2]
+                skills_list.pop(j)
+                break
+    for i in range(len(skills_list)):
+        for j in range(i+1, len(skills_list)):
+            if skills_list[i][0] == skills_list[j][0]:
+                skills_list[i][2] += skills_list[j][2]
+                skills_list.pop(j)
+                break
 
     for skill in skills_list:
         if skill[2] > skill[1]:
             skill[2] = skill[1]
-    print(skills_list)
 
     # sort skill_list by highest count
     skills_list.sort(key=lambda x: x[2], reverse=True)
@@ -146,7 +153,7 @@ def add_gearset():
         return render_template('add_gearset.html', email=session['email'])
 
     flash('You must be logged in to add a gearset.')
-    return render_template('login.html')
+    return redirect(url_for('auth.login'))
 
 @gearsets.route('/add_to_gearset/<gearset_id>/<gear_type>/<gear_id>', methods=['GET'])
 def add_to_gearset(gearset_id, gear_type, gear_id):
@@ -203,7 +210,7 @@ def add_to_gearset(gearset_id, gear_type, gear_id):
         flash('Gear added to gearset')
         return redirect(url_for('gearsets.view_gearsets', email=session['email']))
     flash('You must be logged in to add to a gearset.')
-    return render_template('login.html')
+    return redirect(url_for('auth.login'))
 
 @gearsets.route('/remove_from_gearset/<gearset_id>/<gear_type>', methods=['GET'])
 def remove_from_gearset(gearset_id, gear_type):
@@ -224,7 +231,7 @@ def remove_from_gearset(gearset_id, gear_type):
         flash('Gear removed from gearset')
         return redirect(url_for('gearsets.view_gearset', gearset_id=gearset_id, email=session['email']))
     flash('You must be logged in to remove a gearset.')
-    return render_template('login.html')
+    return redirect(url_for('auth.login'))
 
 @gearsets.route('/add_deco_to_gear/<gearset_id>/<deco_id>', methods=['GET'])
 def add_deco_to_gear(gearset_id, deco_id):
@@ -268,7 +275,7 @@ def add_deco_to_gear(gearset_id, deco_id):
         return redirect(url_for('view_gear.decorations', email=session['email']))
     else:
         flash('You must be logged in to remove a gearset.')
-        return render_template('login.html')
+        return redirect(url_for('auth.login'))
 
 @gearsets.route('/add_rampage_deco_to_gear/<gearset_id>/<deco_id>', methods=['GET'])
 def add_rampage_deco_to_gear(gearset_id, deco_id):
@@ -298,7 +305,7 @@ def add_rampage_deco_to_gear(gearset_id, deco_id):
             return redirect(url_for('view_gear.rampage_decorations', email=session['email']))
     else:
         flash('You must be logged in to make changes to a gearset.')
-        return render_template('login.html')
+        return redirect(url_for('auth.login'))
 
 @gearsets.route('/remove_decoration/<gearset_id>/<gear_type>/<decoration_info>', methods=['GET'])
 def remove_decoration(gearset_id, gear_type, decoration_info):
@@ -400,4 +407,4 @@ def delete_gearset(gearset_id):
         flash('Gearset deleted')
         return redirect(url_for('gearsets.view_gearsets', email=session['email']))
     flash('You must be logged in to delete a gearset.')
-    return render_template('login.html')
+    return redirect(url_for('auth.login'))
