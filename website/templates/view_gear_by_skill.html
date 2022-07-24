@@ -6,6 +6,7 @@
 <br />
 <div class="content">
     <h1 class="center display-3">Gear with {{ skill_name }}</h1>
+    <h1 class="center display-6">{{ skill_info.description }}</h1>
     <br />
     {% if helmets %}
     <table class="table fixed-cols">
@@ -258,7 +259,7 @@
                 </td>
                 {% if email is defined %}
                 <td>
-                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="gloves/{{ glove._id }}" onClick="transferName('{{glove._id}}');"></i>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="gloves/{{ glove._id }}" onClick="transferName('gloves/{{glove._id}}');"></i>
                 </td>
                 {% endif %}
             </tr>

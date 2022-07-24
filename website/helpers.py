@@ -2,13 +2,15 @@ from .database import db
 from bson import ObjectId
 
 def get_skill_names_from_gear(gear):
-    skills = gear['skills']
+    try:
+        skills = gear['skills']
+    except:
+        skills = []
     skills_list = []
     for skill in skills:
         if skill[0] != "" and skill[0] is not None:
             skill_name = skill[0]
             skill_level = int(skill[1])
-                # get max of skill from db
             skill_info = db.skills.find_one({'name': skill_name})
             skills_list.append([skill_name, int(skill_info['max']), skill_level])
     return skills_list
@@ -97,8 +99,11 @@ def get_slot_info_from_gearlist(gearset):
         if slot_info[slot][1] != "":
             decoration_info = db.decorations.find_one({'name': slot_info[slot][1]})
             try:
+                slot_info[slot][1] = slot_info[slot][1] + " " + decoration_info['grade']
                 slot_info[slot].append(decoration_info['skill'])
+                slot_info[slot].append(decoration_info['skilllevel'])
             except TypeError:
+                slot_info[slot].append("")
                 slot_info[slot].append("")
         else:
             slot_info[slot].append("")
@@ -110,5 +115,5 @@ def get_slot_info_from_gearlist(gearset):
                 slot_info[slot].append(db.skills.find_one({'name': slot_info[slot][2]})['max'])
             except TypeError:
                 slot_info[slot].append('')
-
+    print(slot_info)
     return slot_info

@@ -82,6 +82,19 @@
                 {% if weapon.element == "Sleep" %}<img src="/static/sleep.png" alt="sleep" width="20" height="20">{% endif %} 
                 {% if weapon.element == "None" %}  {% else %}
                     {{ weapon.element_str if weapon.element_str }} {% endif %}
+                {% if weapon.element2 %}
+                    {% if weapon.element2 == "Fire" %}<img src="/static/fire.png" alt="fire" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Ice" %}<img src="/static/ice.png" alt="ice" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Thunder" %}<img src="/static/thunder.png" alt="thunder" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Dragon" %}<img src="/static/dragon.png" alt="dragon" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Blast" %}<img src="/static/blast.png" alt="blast" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Water" %}<img src="/static/water.png" alt="water" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Paralysis" %}<img src="/static/paralysis.png" alt="paralysis" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Poison" %}<img src="/static/poison.png" alt="poison" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Sleep" %}<img src="/static/sleep.png" alt="sleep" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "None" %}  {% else %}
+                        {{ weapon.element_str2 if weapon.element_str2 }} {% endif %}
+                {% endif %}
                 <br />
                 Affinity 
                 {% if weapon.affinity > '0%' %}

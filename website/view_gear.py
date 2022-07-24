@@ -79,7 +79,7 @@ def view_legs():
 
 @view_gear.route('/view_greatswords', methods=['GET'])
 def greatswords():
-    greatswords = db.weapons.find({'weapon_type': 'Greatsword'}).sort('rarity', 1)
+    greatswords = db.weapons.find({'weapon_type': 'Greatsword'}).sort('rarity', -1)
 
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})
@@ -90,18 +90,18 @@ def greatswords():
 
 @view_gear.route('/view_longswords', methods=['GET'])
 def longswords():
-    longswords = db.weapons.find({'weapon_type': 'Longsword'})
+    longswords = db.weapons.find({'weapon_type': 'Long Sword'}).sort('rarity', -1)
 
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})
         gearsets = db.gearsets.find({'user_id': user['_id']})
-        return render_template('view_weapon_list.html', weapon_type='Longswords', gearsets=gearsets, weapon_list=longswords, email=session['email'])
+        return render_template('view_weapon_list.html', weapon_type='Long Swords', gearsets=gearsets, weapon_list=longswords, email=session['email'])
 
-    return render_template('view_weapon_list.html', weapon_type='Longswords', weapon_list=longswords)
+    return render_template('view_weapon_list.html', weapon_type='Long Swords', weapon_list=longswords)
 
 @view_gear.route('/view_swordshields', methods=['GET'])
 def sword_and_shields():
-    sword_and_shields = db.weapons.find({'weapon_type': 'Sword and Shield'})
+    sword_and_shields = db.weapons.find({'weapon_type': 'Sword and Shield'}).sort('rarity', -1)
 
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})
@@ -112,7 +112,7 @@ def sword_and_shields():
 
 @view_gear.route('/view_dualblades', methods=['GET'])
 def dual_blades():
-    dual_blades = db.weapons.find({'weapon_type': 'Dual Blades'})
+    dual_blades = db.weapons.find({'weapon_type': 'Dual Blades'}).sort('rarity', -1)
 
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})

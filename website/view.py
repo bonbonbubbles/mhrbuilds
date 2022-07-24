@@ -41,6 +41,7 @@ def edit_skill(skill_name):
 
 @view.route('/view_gear_skill/<skill_name>', methods=['GET'])
 def view_gear_skill(skill_name):
+    skill_info = db.skills.find_one({'name': skill_name})
     helmets_query = db.helmets.find()
     gloves_query = db.gloves.find()
     belts_query = db.belts.find()
@@ -79,8 +80,8 @@ def view_gear_skill(skill_name):
     if 'email' in session:
         user_info = db.users.find_one({'email': session['email']})
         gearsets = db.gearsets.find({'user_id': user_info['_id']})
-        return render_template('view_gear_by_skill.html', helmets=helmets, decorations=decorations, gearsets=gearsets, chests=armor, gloves=gloves, belts=belts, legs=legs, skill_name=skill_name, email=session['email'])
-    return render_template('view_gear_by_skill.html', helmets=helmets, decorations=decorations, chests=armor, gloves=gloves, belts=belts, legs=legs, skill_name=skill_name)
+        return render_template('view_gear_by_skill.html', helmets=helmets, decorations=decorations, skill_info=skill_info, gearsets=gearsets, chests=armor, gloves=gloves, belts=belts, legs=legs, skill_name=skill_name, email=session['email'])
+    return render_template('view_gear_by_skill.html', helmets=helmets, decorations=decorations, skill_info=skill_info, chests=armor, gloves=gloves, belts=belts, legs=legs, skill_name=skill_name)
 
 @view.route('/convert_weapon_skills_to_list', methods=['GET'])
 def convert_weapon_skills_to_list():

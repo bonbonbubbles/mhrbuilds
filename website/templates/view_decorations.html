@@ -7,9 +7,16 @@
 <div class="content">
     <h1 class="center display-3">Decorations</h1>
     <br />
+    <div class="center">
+        <button class="btn btn-success" onclick="showGrade1()">Grade 1</button>
+        <button class="btn btn-success" onclick="showGrade2()">Grade 2</button>
+        <button class="btn btn-success" onclick="showGrade3()">Grade 3</button>
+        <button class="btn btn-success" onclick="showGrade4()">Grade 4</button>
+    </div>
+    <br />
     <table class="table">
         <thead>
-            <tr>
+            <tr class="alwaysshow">
                 <th>Name</th>
                 <th>Skill</th>
                 <th>Description</th>
@@ -20,7 +27,7 @@
         </thead>
         <tbody id="myTable">
             {% for decoration in decorations %}
-            <tr>
+            <tr class="grade{{ decoration.grade }}">
                 <td>{% if decoration.grade == "1" %}
                     <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
                     {% elif decoration.grade == "2" %}
@@ -79,6 +86,32 @@
     function createUrlAndGo(gearset_id) {
         var url = "/add_deco_to_gear/" + gearset_id + "/" + $("#name").val();
         window.location.href = url;
+    };
+</script>
+<script>
+    // show rows marked grade1 and hide the rest
+    function showGrade1() {
+        $("tr.grade1").show();
+        $("tr:not(.grade1)").hide();
+        $("tr.alwaysshow").show();
+    };
+    // show rows marked grade2 and hide the rest
+    function showGrade2() {
+        $("tr.grade2").show();
+        $("tr:not(.grade2)").hide();
+        $("tr.alwaysshow").show();
+    };
+    // show rows marked grade3 and hide the rest
+    function showGrade3() {
+        $("tr.grade3").show();
+        $("tr:not(.grade3)").hide();
+        $("tr.alwaysshow").show();
+    };
+    // show rows marked grade4 and hide the rest
+    function showGrade4() {
+        $("tr.grade4").show();
+        $("tr:not(.grade4)").hide();
+        $("tr.alwaysshow").show();
     };
 </script>
 {% endblock %}
