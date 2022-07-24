@@ -8,9 +8,7 @@ COPY . ./
 
 RUN pip install flask
 RUN pip install "pymongo[srv]"
-RUN pip install flask-dotenv
-RUN pip install flask_dotenv
-RUN pip install flask_pymongo
+RUN pip install Flask_Pymongo
 RUN pip install flask-wtf
 RUN pip install dnspython
 RUN pip install gunicorn
