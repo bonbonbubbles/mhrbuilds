@@ -3,7 +3,6 @@ __pycache__
 *.pyc
 *.pyo
 *.pyd
-.env
 website/__pycache__
 logs/
 venv/

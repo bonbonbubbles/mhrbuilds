@@ -11,6 +11,7 @@ RUN pip3 install "pymongo[srv]"
 RUN pip3 install Flask-Pymongo
 RUN pip3 install flask_pymongo
 RUN pip3 install flask-pymongo
+RUN pip3 install python-dotenv
 RUN pip3 install flask-wtf
 RUN pip3 install dnspython
 RUN pip3 install gunicorn
