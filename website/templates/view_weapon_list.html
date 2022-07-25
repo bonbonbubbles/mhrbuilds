@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+    
+{% block title %}{{ weapon_type }}{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 class="center display-3">{{ weapon_type }}</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Attack</th>
+                <th>Sharpness</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody  id="myTable">
+            {% for weapon in weapon_list %}
+            <tr>
+                <td>{{ weapon.name }}</td>
+                <td>{{ weapon.attack }}</td>
+                <td>{{ weapon.sharpness }}</td>
+                <td>{% if weapon.gem1 != "0" %}
+                        {% if weapon.gem1 == "1" %}
+                        <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                        {% elif weapon.gem1 == "2" %}
+                        <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                        {% elif weapon.gem1 == "3" %}
+                        <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                        {% elif weapon.gem1 == "4" %}
+                        <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                        {% endif %}
+                        {% if weapon.gem2 == "1" %}
+                        <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                        {% elif weapon.gem2 == "2" %}
+                        <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                        {% elif weapon.gem2 == "3" %}
+                        <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                        {% elif weapon.gem2 == "4" %}
+                        <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                        {% endif %}
+                        {% if weapon.gem3 == "1" %}
+                        <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                        {% elif weapon.gem3 == "2" %}
+                        <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                        {% elif weapon.gem3 == "3" %}
+                        <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                        {% elif weapon.gem3 == "4" %}
+                        <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                        {% endif %}
+                    {% endif %}
+                    <br />
+                    <br />
+                    {% if weapon.rampage_gem %}
+                        {% if weapon.rampage_gem != "0" %}
+                            {% if weapon.rampage_gem == "1" %}
+                            <img class="rounded" src="/static/rdeco1.png" width="20" height="20" />
+                            {% elif weapon.rampage_gem == "2" %}
+                            <img class="rounded" src="/static/rdeco2.png" width="20" height="20" />
+                            {% elif weapon.rampage_gem == "3" %}
+                            <img class="rounded" src="/static/rdeco3.png" width="20" height="20" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>{% if weapon.element == "Fire" %}<img src="/static/fire.png" alt="fire" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Ice" %}<img src="/static/ice.png" alt="ice" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Thunder" %}<img src="/static/thunder.png" alt="thunder" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Dragon" %}<img src="/static/dragon.png" alt="dragon" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Blast" %}<img src="/static/blast.png" alt="blast" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Water" %}<img src="/static/water.png" alt="water" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Paralysis" %}<img src="/static/paralysis.png" alt="paralysis" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Poison" %}<img src="/static/poison.png" alt="poison" width="20" height="20">{% endif %} 
+                {% if weapon.element == "Sleep" %}<img src="/static/sleep.png" alt="sleep" width="20" height="20">{% endif %} 
+                {% if weapon.element == "None" %}  {% else %}
+                    {{ weapon.element_str if weapon.element_str }} {% endif %}
+                {% if weapon.element2 %}
+                    {% if weapon.element2 == "Fire" %}<img src="/static/fire.png" alt="fire" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Ice" %}<img src="/static/ice.png" alt="ice" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Thunder" %}<img src="/static/thunder.png" alt="thunder" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Dragon" %}<img src="/static/dragon.png" alt="dragon" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Blast" %}<img src="/static/blast.png" alt="blast" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Water" %}<img src="/static/water.png" alt="water" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Paralysis" %}<img src="/static/paralysis.png" alt="paralysis" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Poison" %}<img src="/static/poison.png" alt="poison" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "Sleep" %}<img src="/static/sleep.png" alt="sleep" width="20" height="20">{% endif %} 
+                    {% if weapon.element2 == "None" %}  {% else %}
+                        {{ weapon.element_str2 if weapon.element_str2 }} {% endif %}
+                {% endif %}
+                <br />
+                Affinity 
+                {% if weapon.affinity > '0%' %}
+                <span style='color: green;'>{{ weapon.affinity }}</span>
+                {% elif weapon.affinity < '0%' %}
+                <span style='color: red;'>{{ weapon.affinity }}</span>
+                {% else %}
+                {{ weapon.affinity }}
+                {% endif %}
+                <br />
+                {% if weapon.defense_bonus > '0' %}
+                Defense Bonus +{{ weapon.defense_bonus }}
+                {% endif %}</td>
+                <td>Rarity {{ weapon.rarity }}</td>
+                <td>
+                    {% if weapon.skills %}
+                        {% for skill in weapon.skills %}
+                        {% if skill != "" and skill != None %}
+                            {{ skill }}<br />
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="weapons/{{ weapon._id }}" onClick="transferName('weapons/{{weapon._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="display-6 center dark">Select Gearset</h1>
+                <input disabled type="hidden" id="name" class="form-control" value="" width="auto" />
+                <br />
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <div class="row row-col-6 g-3">
+                {% for gearset in gearsets %}
+                    <div class="col">
+                        <button type="button" class="btn btn-success add" onClick="createUrlAndGo('{{ gearset._id }}')">{{ gearset.name }}</button>
+                    </div>
+                {% endfor %}
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onClick="window.location.href='/add_gearset/'">Create New Gearset</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function transferName(id) {
+        console.log(id);
+        $("#name").attr("value", id);
+    };
+</script>
+<script>
+    function createUrlAndGo(gearset_id) {
+        var url = "/add_to_gearset/" + gearset_id + "/" + $("#name").val();
+        window.location.href = url;
+    };
+</script>
+{% endblock %}

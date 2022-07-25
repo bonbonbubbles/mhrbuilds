@@ -1,0 +1,11 @@
+.env
+monsterhunterrisebuilds.wsgi
+/venv
+/logs
+/__pycache__
+/website/add_gear.py
+/website/templates/add_gear.html
+/website/templates/add_weapon.html
+/website/templates/add_weapon_rank_8_plus.html
+/website/templates/fix_entry.html
+/website/__pycache__

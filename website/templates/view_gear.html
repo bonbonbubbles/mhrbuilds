@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}View {{ gear_type }}{% endblock %}
+
+{% block content %}
+<br />
+<div class="content">
+    <h1 class="center display-3">{{ gear_type }}</h1>
+    <br />
+    <div class="center">
+        <button class="btn btn-success" onclick="showHigh()">High Rank</button>
+        <button class="btn btn-success" onclick="showMaster()">Master Rank</button>
+    </div>
+    <br />
+    <table class="table">
+        <thead>
+            <tr class="alwaysshow">
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Defense</th>
+                <th>Elemental Defense</th>
+                <th></th>
+                <th>Skills</th>
+                {% if email is defined %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            {% for gear in gear_list %}
+            {% if gear.rank == "high" %}
+            <tr class="high">
+            {% elif gear.rank == "master" %}
+            <tr class="master">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td>{{ gear.name }}</td>
+                <td>{% if gear.rank == "high" %}
+                    High
+                    {% elif gear.rank == "master" %}
+                    Master
+                    {% elif gear.rank == "special" %}
+                    Special
+                    {% endif %}
+                </td>
+                <td>{{ gear.defense }}</td>
+                <td><img class="m-2" src="/static/dragon.png" width="20" height="20" />{{ gear.dragon }}
+                <img class="m-2" src="/static/fire.png" width="20" height="20" />{{ gear.fire }}
+                <br />
+                <img class="m-2" src="/static/ice.png" width="20" height="20" />{{ gear.ice }}
+                <img class="m-2" src="/static/thunder.png" width="20" height="20" />{{ gear.thunder }}
+                <img class="m-2" src="/static/water.png" width="20" height="20" />{{ gear.water }}</td>
+                <td>
+                    {% if gear.gem1 %}
+                        {% if gear.gem1 != "0" %}
+                            {% if gear.gem1 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                            {% elif gear.gem1 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                            {% elif gear.gem1 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                            {% elif gear.gem1 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                            {% endif %}
+                            {% if gear.gem2 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                            {% elif gear.gem2 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                            {% elif gear.gem2 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                            {% elif gear.gem2 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                            {% endif %}
+                            {% if gear.gem3 == "1" %}
+                            <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
+                            {% elif gear.gem3 == "2" %}
+                            <img class="rounded" src="/static/decoration2.png" width="20" height="20" />
+                            {% elif gear.gem3 == "3" %}
+                            <img class="rounded" src="/static/decoration3.png" width="20" height="20" />
+                            {% elif gear.gem3 == "4" %}
+                            <img class="rounded" src="/static/decoration4.png" width="20" height="20" />
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for skill in gear.skills %}
+                    <a href="/view_gear_skill/{{ skill[0] }}">{{ skill[0] }} {{ skill[1] }}</a>
+                    <br />
+                    {% endfor %}
+                </td>
+                {% if email is defined %}
+                <td>
+                    <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="{{ gear_type }}/{{ gear._id }}" onClick="transferName('{{ gear_type }}/{{gear._id}}');"></i>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="display-6 center dark">Select Gearset</h1>
+                <input disabled type="hidden" id="name" class="form-control" value="" width="auto" />
+                <br />
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <div class="row row-col-6 g-3">
+                {% for gearset in gearsets %}
+                    <div class="col">
+                        <button type="button" class="btn btn-success add" onClick="createUrlAndGo('{{ gearset._id }}')">{{ gearset.name }}</button>
+                    </div>
+                {% endfor %}
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onClick="window.location.href='/add_gearset/'">Create New Gearset</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function transferName(id) {
+        console.log(id);
+        $("#name").attr("value", id);
+    };
+</script>
+<script>
+    function createUrlAndGo(gearset_id) {
+        var url = "/add_to_gearset/" + gearset_id + "/" + $("#name").val();
+        window.location.href = url;
+    };
+</script>
+<script>
+    // show rows marked grade1 and hide the rest
+    function showHigh() {
+        $("tr.high").show();
+        $("tr:not(.high)").hide();
+        $("tr.alwaysshow").show();
+    };
+    // show rows marked grade2 and hide the rest
+    function showMaster() {
+        $("tr.master").show();
+        $("tr:not(.master)").hide();
+        $("tr.alwaysshow").show();
+    };
+</script>
+{% endblock %}

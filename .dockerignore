@@ -1,0 +1,10 @@
+Dockerfil
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+website/__pycache__
+logs/
+venv/
+package-lock.json
+package.json
