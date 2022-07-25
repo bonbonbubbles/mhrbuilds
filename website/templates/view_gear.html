@@ -7,9 +7,14 @@
 <div class="content">
     <h1 class="center display-3">{{ gear_type }}</h1>
     <br />
+    <div class="center">
+        <button class="btn btn-success" onclick="showHigh()">High Rank</button>
+        <button class="btn btn-success" onclick="showMaster()">Master Rank</button>
+    </div>
+    <br />
     <table class="table">
         <thead>
-            <tr>
+            <tr class="alwaysshow">
                 <th>Name</th>
                 <th>Rank</th>
                 <th>Defense</th>
@@ -23,7 +28,13 @@
         </thead>
         <tbody id="myTable">
             {% for gear in gear_list %}
+            {% if gear.rank == "high" %}
+            <tr class="high">
+            {% elif gear.rank == "master" %}
+            <tr class="master">
+            {% else %}
             <tr>
+            {% endif %}
                 <td>{{ gear.name }}</td>
                 <td>{% if gear.rank == "high" %}
                     High
@@ -125,6 +136,20 @@
     function createUrlAndGo(gearset_id) {
         var url = "/add_to_gearset/" + gearset_id + "/" + $("#name").val();
         window.location.href = url;
+    };
+</script>
+<script>
+    // show rows marked grade1 and hide the rest
+    function showHigh() {
+        $("tr.high").show();
+        $("tr:not(.high)").hide();
+        $("tr.alwaysshow").show();
+    };
+    // show rows marked grade2 and hide the rest
+    function showMaster() {
+        $("tr.master").show();
+        $("tr:not(.master)").hide();
+        $("tr.alwaysshow").show();
     };
 </script>
 {% endblock %}
