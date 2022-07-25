@@ -22,13 +22,13 @@
             {% for decoration in decorations %}
             <tr>
                 <td>{% if decoration.grade == "1" %}
-                    <img class="rounded" src="/static/decoration1.png" width="30" height="30" />
+                    <img class="rounded" src="/static/rdeco1.png" width="20" height="20" />
                     {% elif decoration.grade == "2" %}
-                    <img class="rounded" src="/static/decoration2.png" width="30" height="30" />
+                    <img class="rounded" src="/static/rdeco2.png" width="20" height="20" />
                     {% elif decoration.grade == "3" %}
-                    <img class="rounded" src="/static/decoration3.png" width="30" height="30" />
+                    <img class="rounded" src="/static/rdeco3.png" width="20" height="20" />
                     {% elif decoration.grade == "4" %}
-                    <img class="rounded" src="/static/decoration4.png" width="30" height="30" />
+                    <img class="rounded" src="/static/rdeco4.png" width="20" height="20" />
                     {% endif %}
                     {{ decoration.name }} {{ decoration.grade }}</td>
                 <td><a href="/view_gear_skill/{{ decoration.skill }}">{{ decoration.skill }}</a></td>
