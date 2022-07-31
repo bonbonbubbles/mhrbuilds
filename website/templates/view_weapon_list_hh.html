@@ -16,6 +16,7 @@
                 <th>Slots</th>
                 <th>Stats</th>
                 <th>Rarity</th>
+                <th>Songs</th>
                 {% if email is defined %}
                 <th></th>
                 {% endif %}
@@ -108,6 +109,15 @@
                 Defense Bonus +{{ weapon.defense_bonus }}
                 {% endif %}</td>
                 <td>Rarity {{ weapon.rarity }}</td>
+                <td>
+                    {% if weapon.songs %}
+                        {% for song in weapon.songs %}
+                        {% if song != "" and song != None %}
+                            {{ song }}<br />
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
                 {% if email is defined %}
                 <td>
                     <i type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal" data-name-value="weapons/{{ weapon._id }}" onClick="transferName('weapons/{{weapon._id}}');"></i>

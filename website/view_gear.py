@@ -139,9 +139,9 @@ def hunting_horns():
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})
         gearsets = db.gearsets.find({'user_id': user['_id']})
-        return render_template('view_weapon_list.html', weapon_type='Hunting Horns', gearsets=gearsets, weapon_list=hunting_horns, email=session['email'])
+        return render_template('view_weapon_list_hh.html', weapon_type='Hunting Horns', gearsets=gearsets, weapon_list=hunting_horns, email=session['email'])
 
-    return render_template('view_weapon_list.html', weapon_type='Hunting Horns', weapon_list=hunting_horns)
+    return render_template('view_weapon_list_hh.html', weapon_type='Hunting Horns', weapon_list=hunting_horns)
 
 @view_gear.route('/view_lances', methods=['GET'])
 def lance():
@@ -205,9 +205,9 @@ def bows():
     if 'email' in session:
         user = db.users.find_one({'email': session['email']})
         gearsets = db.gearsets.find({'user_id': user['_id']})
-        return render_template('view_weapon_list.html', weapon_type='Bows', gearsets=gearsets, weapon_list=bows, email=session['email'])
+        return render_template('view_weapon_list_bow.html', weapon_type='Bows', gearsets=gearsets, weapon_list=bows, email=session['email'])
 
-    return render_template('view_weapon_list.html', weapon_type='Bows', weapon_list=bows)
+    return render_template('view_weapon_list_bow.html', weapon_type='Bows', weapon_list=bows)
 
 @view_gear.route('/view_heavybowguns', methods=['GET'])
 def heavy_bowguns():
