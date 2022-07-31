@@ -12,7 +12,9 @@
             <tr>
                 <th>Name</th>
                 <th>Attack</th>
-                <th>Sharpness</th>
+                <th>Coatings</th>
+                <th>Arc Shot</th>
+                <th>Charge Shot</th>
                 <th>Slots</th>
                 <th>Stats</th>
                 <th>Rarity</th>
@@ -26,7 +28,44 @@
             <tr>
                 <td>{{ weapon.name }}</td>
                 <td>{{ weapon.attack }}</td>
-                <td>{{ weapon.sharpness }}</td>
+                <td>{% for coating in weapon.coatings %}
+                        {% if weapon.coatings[coating][1] == true %}
+                            <span style='color: green;'>
+                        {% else %}
+                            <span>
+                        {% endif %}
+                        {% if weapon.coatings[coating][0] == true %}
+                            {% if coating == "close_range" %}
+                                Close Range
+                                <br />
+                            {% elif coating == "power" %}
+                                Power
+                                <br />
+                            {% elif coating == "poison" %}
+                                Poison
+                                <br />
+                            {% elif coating == "paralysis" %}
+                                Paralysis
+                                <br />
+                            {% elif coating == "sleep" %}
+                                Sleep
+                                <br />
+                            {% elif coating == "blast" %}
+                                Blast
+                                <br />
+                            {% elif coating == "exhaust" %}
+                                Exhaust
+                            {% endif %}
+                        {% endif %}
+                        </span>
+                    {% endfor %}
+                </td>
+                <td>{{ weapon.arc }}</td>
+                <td>{% for type in weapon.types %}
+                        {{ weapon.types[type] }}
+                        <br />
+                    {% endfor %}
+                </td>
                 <td>{% if weapon.gem1 != "0" %}
                         {% if weapon.gem1 == "1" %}
                         <img class="rounded" src="/static/decoration1.png" width="20" height="20" />
